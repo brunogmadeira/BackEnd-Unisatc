@@ -1,0 +1,1 @@
+Duas ideias interessantes para conter ataques em relação a engenharia social, seria uma autenticação utilizando multifatores(mais comum ser utilizada a de dois fatores), e outra ideia que pode conter alguns golpes que requerem maiores trabalhos dentro de determinado sistema, é adicionar um tempo padrão para expiração de um token
