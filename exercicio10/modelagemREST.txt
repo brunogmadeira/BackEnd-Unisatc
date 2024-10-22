@@ -1,0 +1,129 @@
+Nome: Bruno e Yasmin.
+
+Modelagem REST Instagram
+
+***Casos de Uso:
+Caso de Uso 1: Consultar fotos de um usuário e buscar detalhes de uma foto específica
+Usuário: Usuário autenticado.
+Objetivo: Listar as fotos de um usuário autenticado e consultar detalhes de uma foto específica.
+
+Caso de Uso 2: Gerenciamento de mídia (fotos e vídeos)
+Usuário: Usuário autenticado.
+Objetivo: Consultar, obter e atualizar informações da mídia de um perfil (fotos e vídeos).
+
+-> Recursos Identificados:
+Usuários
+Mídias (Fotos e Vídeos)
+Tokens de Acesso
+
+
+Recurso 1: Usuários
+
+a) Consultar Detalhes de um Usuário
+URI: /api/usuarios/{userId}
+Método HTTP: GET
+Requisição esperada: Nenhum corpo necessário. O userId precisa ser um ID válido.
+Respostas possíveis:
+200 OK: Retorna os detalhes do usuário (ex: nome, ID, perfil).
+404 Not Found: Usuário não encontrado para o ID fornecido.
+500 Internal Server Error: Problema no servidor.
+Exemplo de Resposta (200):
+{
+  "id": "17841405793187218",
+  "username": "johndoe",
+  "account_type": "business",
+  "media_count": 50
+}
+
+b) Listar Fotos e Vídeos de um Usuário
+URI: /api/usuarios/{userId}/midias
+Método HTTP: GET
+Requisição esperada: Nenhum corpo necessário.
+Respostas possíveis:
+200 OK: Lista de mídias do usuário retornada com sucesso.
+404 Not Found: Nenhuma mídia encontrada para o usuário.
+500 Internal Server Error: Problema no servidor.
+Exemplo de Resposta (200):
+{
+  "data": [
+    {
+      "id": "17895695668004550",
+      "media_type": "IMAGE",
+      "media_url": "https://linkfoto",
+      "caption": "Uma bela paisagem!"
+    },
+    {
+      "id": "17895695668004551",
+      "media_type": "VIDEO",
+      "media_url": "https://linkvideo",
+      "caption": "Curtindo o verão!"
+    }
+  ]
+}
+
+c) Atualizar Informações de um Perfil
+URI: /api/usuarios/{userId}
+Método HTTP: PUT
+Requisição esperada:
+{
+  "username": "novo_nome_usuario",
+  "bio": "Nova bio do usuário"
+}
+Respostas possíveis:
+200 OK: Perfil atualizado com sucesso.
+400 Bad Request: Algum campo obrigatório está ausente ou inválido.
+404 Not Found: Usuário não encontrado para o ID fornecido.
+500 Internal Server Error: Problema no servidor.
+
+
+Recurso 2: Mídias (Fotos e Vídeos)
+
+a) Consultar Detalhes de uma Mídia
+URI: /api/midias/{mediaId}
+Método HTTP: GET
+Requisição esperada: Nenhum corpo necessário.
+Respostas possíveis:
+200 OK: Detalhes da mídia retornados com sucesso.
+404 Not Found: Mídia não encontrada para o ID fornecido.
+500 Internal Server Error: Problema no servidor.
+Exemplo de Resposta (200):
+{
+  "id": "17895695668004550",
+  "media_type": "IMAGE",
+  "media_url": "https://linkfoto",
+  "username": "johndoe",
+  "caption": "Uma bela paisagem!"
+}
+
+b) Listar Comentários em uma Mídia
+URI: /api/midias/{mediaId}/comentarios
+Método HTTP: GET
+Requisição esperada: Nenhum corpo necessário.
+Respostas possíveis:
+200 OK: Lista de comentários retornada com sucesso.
+404 Not Found: Comentários não encontrados para a mídia.
+500 Internal Server Error: Problema no servidor.
+Exemplo de Resposta (200):
+{
+  "data": [
+    {
+      "id": "17876651234004550",
+      "username": "janedoe",
+      "text": "Amei essa foto!"
+    },
+    {
+      "id": "17876651234004551",
+      "username": "mariad",
+      "text": "Muito bonita!"
+    }
+  ]
+}
+
+c) Excluir uma Mídia
+URI: /api/midias/{mediaId}
+Método HTTP: DELETE
+Requisição esperada: Nenhum corpo necessário.
+Respostas possíveis:
+204 No Content: Mídia deletada com sucesso.
+404 Not Found: Mídia não encontrada para o ID fornecido.
+500 Internal Server Error: Problema no servidor ao tentar remover a mídia.
